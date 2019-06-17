@@ -1,7 +1,9 @@
 {
   "name": "quillgethtml",
   "version": "0.0.1",
-  "scripts": {},
+  "scripts": {
+    "build": "uglifyjs --compress --mangle -- quillgethtml.js > quillgethtml.min.js"
+  },
   "devDependencies": {
     "uglify-js": "^3.6.0"
   }
