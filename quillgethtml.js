@@ -41,6 +41,5 @@ Quill.prototype.getHTML = function() {
             }
         }
     });
-    console.log(output);
     return output;
 };
