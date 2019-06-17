@@ -1,0 +1,14 @@
+{
+	"git": {
+		"tagName":"v${version}",
+		"commitMessage":"Release version ${version}"
+	},
+	"github": {
+		"release":true,
+		"assets":["quillgethtml.js","quillgethtml.min.js"],
+		"preRelease":true
+	},
+	"hooks": {
+		"before:init":["npm run build"]
+	}
+}
