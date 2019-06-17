@@ -6,16 +6,39 @@ Quill.prototype.getHTML = function() {
         {
             if(element.attributes.bold)
             {
-                output += "<b>" + element.insert + "</b>";
+                output += "<b>";
+            }
+            if(element.attributes.italic)
+            {
+                output += "<i>";
+            }
+            if(element.attributes.underline)
+            {
+                output += "<u>";
             }
         }
-        else if(element.insert.formula)
+        if(element.insert.formula)
         {
             output += "<span>\\(" + element.insert.formula + "\\)</span>";
         }
         else
         {
             output += element.insert;
+        }
+        if(element.attributes)
+        {
+            if(element.attributes.bold)
+            {
+                output += "</b>";
+            }
+            if(element.attributes.italic)
+            {
+                output += "</i>"
+            }
+            if(element.attributes.underline)
+            {
+                output += "</u>"
+            }
         }
     });
     console.log(output);
