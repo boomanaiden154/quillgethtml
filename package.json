@@ -1,6 +1,8 @@
 {
   "name": "quillgethtml",
   "version": "0.0.1",
-  "scripts": {
+  "scripts": {},
+  "devDependencies": {
+    "uglify-js": "^3.6.0"
   }
 }
