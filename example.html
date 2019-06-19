@@ -14,13 +14,12 @@
         <div id="editor">
         </div>
         <button id="updatehtml">update</button><br/>
-        <span id="output"></span>
+        <div id="output"></span>
         <script>
             var quill = new Quill('#editor', {
                 theme: 'snow',
                 modules: {
-                    formula: true,
-                    toolbar: [["bold", "italic", "underline", "formula"]]
+                    formula: true
                 }
             });
             document.getElementById("updatehtml").onclick = function() {
