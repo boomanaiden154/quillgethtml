@@ -73,8 +73,20 @@ Quill.prototype.getHTML = function() {
             }
         }
     });
-    lines.forEach(function(element) {
-        output += element;
-    });
+    if(lines[lines.length - 1] == "")
+    {
+        lines.pop();
+    }
+    for(var i = 0; i < lines.length; i++)
+    {
+        if(i == (lines.length - 1) && lines[i].endsWith("</br>"))
+        {
+            output += lines[i].slice(0,lines[i].length - 5);
+        }
+        else
+        {
+            output += lines[i];
+        }
+    }
     return output;
 };
