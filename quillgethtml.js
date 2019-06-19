@@ -33,7 +33,17 @@ Quill.prototype.getHTML = function() {
             element.insert.split(/(\n)/g).forEach(function(textElement) {
                 if(textElement == "\n")
                 {
-                    lines[linesIndex] = lines[linesIndex] + "</br>"
+                    if(element.attributes)
+                    {
+                        if(element.attributes.header)
+                        {
+                            lines[linesIndex] = "<h" + element.attributes.header + ">" + lines[linesIndex] + "</h" + element.attributes.header + ">";
+                        }
+                    }
+                    else
+                    {
+                        lines[linesIndex] = "<p>" + lines[linesIndex] + "</p></br>"
+                    }
                     lines.push("");
                     linesIndex++;
                 }
