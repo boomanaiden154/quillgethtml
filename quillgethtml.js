@@ -23,6 +23,14 @@ Quill.prototype.getHTML = function() {
             {
                 lines[linesIndex] += "<strike>";
             }
+            if(element.attributes.script == "super")
+            {
+                lines[linesIndex] += "<sup>";
+            }
+            if(element.attributes.script == "sub")
+            {
+                lines[linesIndex] += "<sub>";
+            }
         }
         if(element.insert.formula)
         {
@@ -74,6 +82,14 @@ Quill.prototype.getHTML = function() {
             if(element.attributes.strike)
             {
                 lines[linesIndex] += "</strike>";
+            }
+            if(element.attributes.script == "super")
+            {
+                lines[linesIndex] += "</sup>";
+            }
+            if(element.attributes.script == "sub")
+            {
+                lines[linesIndex] += "</sub>";
             }
         }
     });
