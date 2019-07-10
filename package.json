@@ -1,12 +1,20 @@
 {
   "name": "quillgethtml",
   "version": "0.0.3",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/boomanaiden154/quillgethtml"
+  },
   "scripts": {
     "build": "uglifyjs --compress --mangle -- quillgethtml.js > quillgethtml.min.js",
-    "release": "release-it --no-npm.publish"
+    "release": "release-it"
   },
   "devDependencies": {
     "release-it": "^12.3.0",
     "uglify-js": "^3.6.0"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

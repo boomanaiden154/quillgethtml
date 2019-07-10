@@ -8,6 +8,9 @@
 		"assets":["quillgethtml.js","quillgethtml.min.js"],
 		"preRelease":true
 	},
+	"npm": {
+		"release": true
+	},
 	"hooks": {
 		"before:init":["npm run build"]
 	}

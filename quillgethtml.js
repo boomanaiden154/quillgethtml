@@ -38,7 +38,7 @@ Quill.prototype.getHTML = function() {
         }
         else if(element.insert.image)
         {
-            lines[linesIndex] += `<img src="${element.insert.image}"/>`
+            lines[linesIndex] = lines[linesIndex] + "<img src=\"" + element.insert.image + "\"/>";
         }
         else
         {
