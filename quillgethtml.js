@@ -28,6 +28,10 @@ Quill.prototype.getHTML = function() {
         {
             lines[linesIndex] += "<span>\\(" + element.insert.formula + "\\)</span>";
         }
+        else if(element.insert.image)
+        {
+            lines[linesIndex] += `<img src="${element.insert.image}"/>`
+        }
         else
         {
             element.insert.split(/(\n)/g).forEach(function(textElement) {
