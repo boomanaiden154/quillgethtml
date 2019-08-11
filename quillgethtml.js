@@ -2,43 +2,47 @@ Quill.prototype.getHTML = function() {
     var delta = this.getContents();
     var output = "";
     var lines = [];
-    lines.push("");
+    lines.push({"text":""});
     linesIndex = 0;
     delta.ops.forEach(function(element) {
         if(element.attributes)
         {
             if(element.attributes.bold)
             {
-                lines[linesIndex] += "<b>";
+                lines[linesIndex].text += "<b>";
             }
             if(element.attributes.italic)
             {
-                lines[linesIndex] += "<i>";
+                lines[linesIndex].text += "<i>";
             }
             if(element.attributes.underline)
             {
-                lines[linesIndex] += "<u>";
+                lines[linesIndex].text += "<u>";
             }
             if(element.attributes.strike)
             {
-                lines[linesIndex] += "<strike>";
+                lines[linesIndex].text += "<strike>";
             }
             if(element.attributes.script == "super")
             {
-                lines[linesIndex] += "<sup>";
+                lines[linesIndex].text += "<sup>";
             }
             if(element.attributes.script == "sub")
             {
-                lines[linesIndex] += "<sub>";
+                lines[linesIndex].text += "<sub>";
+            }
+            if(element.attributes['code-block'])
+            {
+                lines[linesIndex].codeBlock = true;
             }
         }
         if(element.insert.formula)
         {
-            lines[linesIndex] += "<span>\\(" + element.insert.formula + "\\)</span>";
+            lines[linesIndex].text += "<span>\\(" + element.insert.formula + "\\)</span>";
         }
         else if(element.insert.image)
         {
-            lines[linesIndex] = lines[linesIndex] + "<img src=\"" + element.insert.image + "\"/>";
+            lines[linesIndex].text += "<img src=\"" + element.insert.image + "\"/>";
         }
         else
         {
@@ -49,19 +53,19 @@ Quill.prototype.getHTML = function() {
                     {
                         if(element.attributes.header)
                         {
-                            lines[linesIndex] = "<h" + element.attributes.header + ">" + lines[linesIndex] + "</h" + element.attributes.header + ">";
+                            lines[linesIndex].text = "<h" + element.attributes.header + ">" + lines[linesIndex].text + "</h" + element.attributes.header + ">";
                         }
                     }
                     else
                     {
-                        lines[linesIndex] = "<p>" + lines[linesIndex] + "</p></br>"
+                        lines[linesIndex].text = "<p>" + lines[linesIndex].text + "</p>"
                     }
-                    lines.push("");
+                    lines.push({"text":""});
                     linesIndex++;
                 }
                 else
                 {
-                    lines[linesIndex] += textElement;
+                    lines[linesIndex].text += textElement;
                 }
             });
         }
@@ -69,43 +73,58 @@ Quill.prototype.getHTML = function() {
         {
             if(element.attributes.bold)
             {
-                lines[linesIndex] += "</b>";
+                lines[linesIndex].text += "</b>";
             }
             if(element.attributes.italic)
             {
-                lines[linesIndex] += "</i>"
+                lines[linesIndex].text += "</i>"
             }
             if(element.attributes.underline)
             {
-                lines[linesIndex] += "</u>"
+                lines[linesIndex].text += "</u>"
             }
             if(element.attributes.strike)
             {
-                lines[linesIndex] += "</strike>";
+                lines[linesIndex].text += "</strike>";
             }
             if(element.attributes.script == "super")
             {
-                lines[linesIndex] += "</sup>";
+                lines[linesIndex].text += "</sup>";
             }
             if(element.attributes.script == "sub")
             {
-                lines[linesIndex] += "</sub>";
+                lines[linesIndex].text += "</sub>";
             }
         }
     });
-    if(lines[lines.length - 1] == "")
+    if(lines[lines.length - 1].text == "")
     {
         lines.pop();
     }
+    var inCodeBlock = false;
     for(var i = 0; i < lines.length; i++)
     {
-        if(i == (lines.length - 1) && lines[i].endsWith("</br>"))
+        if(i == (lines.length - 1) && lines[i].text.endsWith("</br>"))
         {
-            output += lines[i].slice(0,lines[i].length - 5);
+            output += lines[i].text.slice(0,lines[i].text.length - 5);
         }
         else
         {
-            output += lines[i];
+            if(lines[i].codeBlock && inCodeBlock == false)
+            {
+                output += "<pre style=\"background-color:#23241f;color:#f8f8f2;padding:5px 10px;line-height:1.42;\">";
+                inCodeBlock = true;
+            }
+            if(!lines[i].codeBlock && inCodeBlock)
+            {
+                output += "</pre>";
+                inCodeBlock = false;
+            }
+            output += lines[i].text;
+            if(inCodeBlock)
+            {
+                output += "\n";
+            }
         }
     }
     return output;
