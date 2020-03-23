@@ -11,8 +11,8 @@
     "release": "release-it"
   },
   "devDependencies": {
-    "release-it": "^12.3.0",
-    "uglify-js": "^3.6.0"
+    "release-it": "^12.6.3",
+    "uglify-js": "^3.8.0"
   },
   "publishConfig": {
     "access": "public"
