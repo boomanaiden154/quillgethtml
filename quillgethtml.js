@@ -1,3 +1,13 @@
+function escapeCharacters(textInput)
+{
+    var toReturn = textInput.replace(/&/g,"&amp;");
+    toReturn = toReturn.replace(/</g,"&lt;");
+    toReturn = toReturn.replace(/>/g,"&gt;");
+    toReturn = toReturn.replace(/\"/g,"&quot;");
+    toReturn = toReturn.replace(/\'/g,"&#39;");
+    return toReturn;
+}
+
 Quill.prototype.getHTML = function() {
     var delta = this.getContents();
     var output = "";
@@ -65,7 +75,7 @@ Quill.prototype.getHTML = function() {
                 }
                 else
                 {
-                    lines[linesIndex].text += textElement;
+                    lines[linesIndex].text += escapeCharacters(textElement);
                 }
             });
         }
